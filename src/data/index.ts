@@ -34,12 +34,8 @@ export const skillGroups = [
     pills: ["MITRE ATT&CK", "ISO/IEC 27001", "NIST CSF", "FAIR", "GDPR", "Chain of Custody"],
   },
   {
-    title: "Programming & Dev",
-    pills: ["Python", "JavaScript", "Bash", "HTML/CSS", "React", "AI-Assisted Dev"],
-  },
-  {
-    title: "Platforms",
-    pills: ["Splunk (SOC)", "AWS (CCP)", "Azure (AI-900)", "GitHub Pages", "ISC2 CC (Scheduled)"],
+    title: "Certifications & Platforms",
+    pills: ["AWS CCP", "Azure AI-900", "Belkasoft Windows Forensics", "Splunk SOC Bootcamp", "ISC2 CC (Scheduled)", "ISC2 Associate Member"],
   },
 ]
 
@@ -82,7 +78,7 @@ export const projects: Project[] = [
     badge: "DFIR · AI Tooling",
     type: "dfir",
     title: "AI Conversation Logger",
-    desc: "A forensic-grade tool for logging, structuring and analysing AI/LLM interactions. Explores how conversational data can be captured and investigated from a digital forensics perspective.",
+    desc: "A forensic-grade tool designed to capture, structure and analyse interactions with AI language models. Built to investigate the evidential and behavioural characteristics of LLM-generated outputs — exploring how conversational data can be preserved, examined and presented within a digital forensics investigation framework.",
     tags: ["Python", "LLM Analysis", "Log Forensics", "AI"],
     wip: true,
     links: [
@@ -97,7 +93,7 @@ export const projects: Project[] = [
     desc: "AI-assisted web app helping Hong Kong BNO visa holders navigate UK settlement (ILR) applications. Auto-generates personalised document checklists, tracks the 180-day absence rule, and calculates the earliest eligible application date.",
     tags: ["Vanilla JS", "LocalStorage", "PWA", "Immigration Law"],
     links: [
-      { label: "↗ Live App", href: "https://Redick2019.github.io/bno-checklist", amber: true },
+      { label: "↗ Live App", href: "https://redick2019.github.io/BNO_CheckList/", amber: true },
       { label: "GitHub", href: "https://github.com/Redick2019/bno-checklist" },
     ],
   },
