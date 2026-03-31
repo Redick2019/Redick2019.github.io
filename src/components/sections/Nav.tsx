@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { personal } from "@/data"
+
 
 const links = ["projects", "skills", "about", "contact"]
 
@@ -24,7 +24,7 @@ export default function Nav() {
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-7 h-14"
         style={{ background:"rgba(7,14,23,.92)", backdropFilter:"blur(20px)", borderBottom:"1px solid #1a2d42" }}>
         <a href="#home" className="font-mono text-[15px] text-[#dde4ed] no-underline">
-          <span className="text-[#00b4ff]">&gt;</span> {personal.name.toLowerCase().replace(" ", "_")}
+          <span className="text-[#00b4ff]">&gt;</span> Redick, Chun-Yin Ng
         </a>
 
         {/* Desktop nav */}
@@ -42,7 +42,7 @@ export default function Nav() {
 
         <div className="hidden md:flex items-center gap-2 font-mono text-[11px] tracking-wide text-[#00e5a0]">
           <span className="w-2 h-2 rounded-full bg-[#00e5a0]" style={{ animation:"pulseDot 2.2s ease infinite" }} />
-          open_to_work
+          OPEN_TO_WORK
         </div>
 
         {/* Mobile burger */}

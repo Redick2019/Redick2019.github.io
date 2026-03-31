@@ -8,7 +8,7 @@ export default function Contact() {
 
   const links = [
     { label:"✉ Email", href:`mailto:${personal.email}` },
-    { label:"in LinkedIn", href:personal.linkedin },
+    { label:"LinkedIn", href:personal.linkedin },
     { label:"⌥ GitHub", href:personal.github },
   ]
 
