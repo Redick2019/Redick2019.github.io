@@ -33,10 +33,6 @@ export const skillGroups = [
     title: "Frameworks & Governance",
     pills: ["MITRE ATT&CK", "ISO/IEC 27001", "NIST CSF", "FAIR", "GDPR", "US Cloud Act", "Chain of Custody"],
   },
-  {
-    title: "Certifications & Platforms",
-    pills: ["AWS CCP", "Azure AI-900", "Belkasoft Windows Forensics", "Splunk SOC Bootcamp", "ISC2 CC (Scheduled)", "ISC2 Associate Member"],
-  },
 ]
 
 // ─── PROJECTS ──────────────────────────────────────────────
