@@ -31,7 +31,7 @@ export const skillGroups = [
   },
   {
     title: "Frameworks & Governance",
-    pills: ["MITRE ATT&CK", "ISO/IEC 27001", "NIST CSF", "FAIR", "GDPR", "Chain of Custody"],
+    pills: ["MITRE ATT&CK", "ISO/IEC 27001", "NIST CSF", "FAIR", "GDPR", "US Cloud Act", "Chain of Custody"],
   },
   {
     title: "Certifications & Platforms",
