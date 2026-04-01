@@ -31,11 +31,7 @@ export const skillGroups = [
   },
   {
     title: "Frameworks & Governance",
-    pills: ["MITRE ATT&CK", "ISO/IEC 27001", "NIST CSF", "FAIR", "GDPR", "Chain of Custody"],
-  },
-  {
-    title: "Certifications & Platforms",
-    pills: ["AWS CCP", "Azure AI-900", "Belkasoft Windows Forensics", "Splunk SOC Bootcamp", "ISC2 CC (Scheduled)", "ISC2 Associate Member"],
+    pills: ["MITRE ATT&CK", "ISO/IEC 27001", "NIST CSF", "FAIR", "GDPR", "US Cloud Act", "Chain of Custody"],
   },
 ]
 
@@ -71,7 +67,7 @@ export const projects: Project[] = [
     title: "Cloud Forensics Research",
     desc: "7,071-word independent dissertation evaluating technical, legal and organisational challenges of digital forensics in cloud environments. Developed an original 6-phase cloud forensics framework covering GDPR, the U.S. CLOUD Act and SHA-256 chain-of-custody standards.",
     tags: ["Cloud Forensics", "GDPR", "NIST IR 8006", "ISO/IEC 27001", "Framework Design"],
-    links: [{ label: "📄 Read Abstract (soon)", href: "#" }],
+    links: [{ label: "📄 Read Dissertation", href: "/FYP_22034405.pdf" }],
   },
   {
     icon: "🤖",
