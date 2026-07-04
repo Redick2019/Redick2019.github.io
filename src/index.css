@@ -5,6 +5,7 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
+section[id] { scroll-margin-top: 64px; }
 body { background: #070e17; color: #dde4ed; font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
 
 .grid-bg {

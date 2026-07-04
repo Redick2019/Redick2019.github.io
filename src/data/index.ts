@@ -9,7 +9,7 @@ export const personal = {
   linkedin: "https://www.linkedin.com/in/redickng",
   tagline: "I investigate digital incidents and build AI-powered tools to solve real-world problems.",
   bio: [
-    "BSc (Hons) Cyber Security and Digital Forensics graduate from UWE Bristol (2:1), currently working as a Helpline Responder Trainee at The Cyber Helpline while actively seeking my first DFIR analyst role.",
+    "BSc (Hons) Cyber Security and Digital Forensics graduate from UWE Bristol (2:1), now working as a Helpline Responder at The Cyber Helpline — handling live cases for victims of cybercrime — while actively seeking my first DFIR analyst role.",
     "Across three years of structured forensic investigation, I've progressed from case analysis through live memory acquisition to managing a full multi-platform forensic lifecycle — laptop endpoint, cloud (M365), and mobile — producing a unified, defensible incident timeline using Magnet AXIOM, EnCase, and Autopsy.",
     "My dissertation explored digital forensics in cloud environments, including a 6-phase cloud forensics framework covering GDPR, the U.S. CLOUD Act, and chain-of-custody standards. I'm also passionate about using AI as a development partner to build practical tools that solve real-world problems.",
   ],
@@ -98,14 +98,14 @@ export const projects: Project[] = [
 // ─── EXPERIENCE ────────────────────────────────────────────
 export const experience = [
   {
-    role: "Helpline Responder Trainee",
+    role: "Helpline Responder",
     org: "The Cyber Helpline",
     period: "Jan 2026 – Present",
     type: "dfir" as ProjectType,
     points: [
-      "Triaged and escalated across the full digital threat taxonomy: account compromise, malware, stalking, fraud, and identity theft.",
-      "Produced structured internal case notes from live calls for handover within a shared ticket system — demonstrating DFIR-grade documentation discipline.",
-      "Passed simulated live assessment under emotional pressure before live deployment.",
+      "Completed structured responder training — including a simulated live assessment under emotional pressure — and now handle live cases independently.",
+      "Actively respond to real victims of cybercrime across the full digital threat taxonomy: account compromise, malware, stalking, fraud, and identity theft.",
+      "Produce structured case notes and escalation handovers from live calls within a shared ticket system — demonstrating DFIR-grade documentation discipline.",
     ],
   },
   {
@@ -122,20 +122,28 @@ export const experience = [
 ]
 
 // ─── CERTIFICATIONS ────────────────────────────────────────
-export const certifications = [
-  { name: "AWS Cloud Practitioner (CCP)", issuer: "Amazon Web Services", year: "2025", active: true },
-  { name: "Azure AI Fundamentals (AI-900)", issuer: "Microsoft", year: "2024", active: true },
-  { name: "Belkasoft: Windows Forensics", issuer: "Belkasoft", year: "Feb 2025", active: true },
-  { name: "SOC Operations Bootcamp (Splunk)", issuer: "ThinkCloudy", year: "2025", active: true },
-  { name: "ISC2 CC (Certified in Cybersecurity)", issuer: "ISC2", year: "May 2026", active: false },
-  { name: "ISC2 Associate Member", issuer: "ISC2", year: "2024–Present", active: true },
+export interface Certification {
+  name: string
+  issuer: string
+  year: string
+  active: boolean
+  // screenshot in public/certs/ — the card hides the image automatically if the file is missing
+  image?: string
+}
+
+export const certifications: Certification[] = [
+  { name: "AWS Cloud Practitioner (CCP)", issuer: "Amazon Web Services", year: "2025", active: true, image: "/certs/aws-ccp.png" },
+  { name: "Azure AI Fundamentals (AI-900)", issuer: "Microsoft", year: "2024", active: true, image: "/certs/azure-ai-900.png" },
+  { name: "Belkasoft: Windows Forensics", issuer: "Belkasoft", year: "Feb 2025", active: true, image: "/certs/belkasoft-windows-forensics.png" },
+  { name: "SOC Operations Bootcamp (Splunk)", issuer: "ThinkCloudy", year: "2025", active: true, image: "/certs/soc-bootcamp.png" },
+  { name: "ISC2 Associate Member", issuer: "ISC2", year: "2024–Present", active: true, image: "/certs/isc2-associate.png" },
 ]
 
 // ─── STATS ─────────────────────────────────────────────────
 export const stats = [
   { n: "2:1", l: "BSc DFIR Degree" },
   { n: "4", l: "Live Projects" },
-  { n: "5+", l: "Certifications" },
+  { n: "5", l: "Certifications" },
   { n: "Open", l: "To Opportunities", green: true },
 ]
 

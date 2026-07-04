@@ -1,6 +1,6 @@
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useState } from "react"
 import { motion, useInView } from "framer-motion"
-import { stats, experience } from "@/data"
+import { stats, experience, certifications } from "@/data"
 
 function TimelineDraw({ inView }: { inView: boolean }) {
   const lineRef = useRef<HTMLDivElement>(null)
@@ -53,6 +53,14 @@ function TimelineDraw({ inView }: { inView: boolean }) {
 export default function About() {
   const ref = useRef(null)
   const inView = useInView(ref, {once:true,margin:'-60px'})
+  const [lightbox, setLightbox] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (!lightbox) return
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setLightbox(null) }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [lightbox])
 
   return (
     <section id="about" ref={ref} className="py-28" style={{background:'#070e17'}}>
@@ -78,7 +86,7 @@ export default function About() {
             <motion.p initial={{opacity:0,y:24}} animate={inView?{opacity:1,y:0}:{}}
               transition={{duration:.6,delay:.2}}
               className="text-[15px] text-[#5d7a96] leading-[1.88] mb-5">
-              Across three years of structured forensic investigation, I progressed from foundational case analysis through live memory acquisition, ultimately managing a <strong className="text-[#dde4ed]">complete multi-platform forensic lifecycle</strong> — spanning a laptop endpoint, Microsoft 365 cloud environment, and mobile device. I currently serve as a <strong className="text-[#dde4ed]">Helpline Responder Trainee at The Cyber Helpline</strong>, applying investigative triage and documentation skills in a live operational environment.
+              Across three years of structured forensic investigation, I progressed from foundational case analysis through live memory acquisition, ultimately managing a <strong className="text-[#dde4ed]">complete multi-platform forensic lifecycle</strong> — spanning a laptop endpoint, Microsoft 365 cloud environment, and mobile device. I now serve as a <strong className="text-[#dde4ed]">Helpline Responder at The Cyber Helpline</strong>, handling live cases and applying investigative triage and documentation skills in a live operational environment.
             </motion.p>
             <motion.p initial={{opacity:0,y:24}} animate={inView?{opacity:1,y:0}:{}}
               transition={{duration:.6,delay:.3}}
@@ -108,7 +116,61 @@ export default function About() {
           </div>
           <TimelineDraw inView={inView} />
         </motion.div>
+
+        {/* Certifications */}
+        <motion.div initial={{opacity:0,y:24}} animate={inView?{opacity:1,y:0}:{}}
+          transition={{duration:.6,delay:.4}} className="mt-20">
+          <div className="font-mono text-[11px] tracking-[3px] uppercase text-[#5d7a96] mb-8 flex items-center gap-3">
+            Certifications <span className="flex-1 h-px bg-[#1a2d42]"/>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {certifications.map((c, i) => (
+              <motion.div key={c.name}
+                initial={{opacity:0,y:16}} animate={inView?{opacity:1,y:0}:{}}
+                transition={{duration:.5,delay:.5+i*.07}}
+                className="rounded-xl p-5 flex flex-col gap-4 transition-all duration-200"
+                style={{background:'#0d1825',border:'1px solid #1a2d42'}}
+                onMouseEnter={e=>{e.currentTarget.style.borderColor='rgba(0,180,255,.3)'}}
+                onMouseLeave={e=>{e.currentTarget.style.borderColor='#1a2d42'}}>
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <div className="font-syne font-bold text-[14px] text-[#dde4ed] leading-snug">{c.name}</div>
+                    <div className="font-mono text-[11px] text-[#5d7a96] mt-1.5">{c.issuer}</div>
+                  </div>
+                  <span className="font-mono text-[10px] px-2.5 py-1 rounded-full flex-shrink-0 whitespace-nowrap"
+                    style={{background:'rgba(0,229,160,.08)',color:'#00e5a0',border:'1px solid rgba(0,229,160,.2)'}}>
+                    {c.year}
+                  </span>
+                </div>
+                {c.image && (
+                  <button onClick={()=>setLightbox(c.image!)}
+                    className="block w-full cursor-zoom-in mt-auto" aria-label={`View ${c.name} certificate`}>
+                    <img src={c.image} alt={`${c.name} certificate`} loading="lazy"
+                      className="w-full h-28 object-cover object-top rounded-lg transition-opacity hover:opacity-80"
+                      style={{border:'1px solid #1a2d42'}}
+                      onError={e=>{(e.currentTarget.parentElement as HTMLElement).style.display='none'}}/>
+                  </button>
+                )}
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </div>
+
+      {/* Certificate lightbox */}
+      {lightbox && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 cursor-zoom-out"
+          style={{background:'rgba(4,8,14,.9)',backdropFilter:'blur(6px)'}}
+          onClick={()=>setLightbox(null)}>
+          <img src={lightbox} alt="Certificate — full view"
+            className="max-w-full max-h-[85vh] rounded-xl"
+            style={{border:'1px solid #1a2d42',boxShadow:'0 32px 80px rgba(0,0,0,.6)'}}/>
+          <button onClick={()=>setLightbox(null)}
+            className="absolute top-5 right-7 font-mono text-[13px] text-[#5d7a96] hover:text-[#00b4ff] transition-colors">
+            ✕ close [esc]
+          </button>
+        </div>
+      )}
     </section>
   )
 }

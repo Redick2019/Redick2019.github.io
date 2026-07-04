@@ -4,10 +4,11 @@ import { BackgroundBeams, PacketBars } from "../ui/effects"
 import { personal } from "@/data"
 
 const LINES = [
-  '// DFIR Graduate — open to work',
+  '// Cyber Helpline Responder — open to DFIR roles',
   '{',
   '  "name": "Redick Chun-Yin Ng",',
   '  "degree": "BSc Cyber Security & DFIR (2:1)",',
+  '  "role": "Helpline Responder · Live Cases",',
   '  "location": "Cheltenham, UK",',
   '  "status": "open_to_work",',
   '  "tools": ["AXIOM", "EnCase", "Volatility3"],',
@@ -137,7 +138,7 @@ export default function Hero() {
             </div>
             <div className="absolute -bottom-4 -left-5 font-mono text-[11px] text-[#f5a623] px-4 py-2.5 rounded-lg tracking-wide"
               style={{background:'#0d1825',border:'1px solid rgba(245,166,35,.3)',boxShadow:'0 8px 24px rgba(0,0,0,.4)'}}>
-              ⚡ Cyber Helpline · Active
+              ⚡ Cyber Helpline · Live Casework
             </div>
           </motion.div>
         </div>
