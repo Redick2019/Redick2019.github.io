@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from "react"
 import { motion, useInView } from "framer-motion"
 import { projects } from "@/data"
+import { EvidenceHash, ControlMatrix } from "../ui/effects"
 
 function useCountUp(target: number, trigger: boolean, duration = 1600) {
   const [val, setVal] = useState(0)
@@ -18,41 +19,17 @@ function useCountUp(target: number, trigger: boolean, duration = 1600) {
   return val
 }
 
-function HashVerifier() {
-  const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref as any, {once:true, margin:"-40px"})
-  const [hash, setHash] = useState('')
-  const [done, setDone] = useState(false)
-  const FAKE = 'a3f8c2e1b7d94f56ef2c18a3f8c2e1b7d94f56ef2c18a3f8c2e1b7d94f560012'
-
-  useEffect(() => {
-    if (!inView) return
-    let i = 0
-    const id = setInterval(() => {
-      if (i >= FAKE.length) { clearInterval(id); setHash(FAKE); setDone(true); return }
-      setHash(FAKE.slice(0, i) + '_')
-      i++
-    }, 20)
-    return () => clearInterval(id)
-  }, [inView])
-
-  return (
-    <div ref={ref} className="mx-6 mb-3 rounded-md p-3" style={{background:'rgba(0,180,255,.05)',border:'1px solid rgba(0,180,255,.12)'}}>
-      <div className="font-mono text-[9px] text-[#5d7a96] mb-1 tracking-widest">SHA-256 EVIDENCE HASH</div>
-      <div className="font-mono text-[10px] text-[#00b4ff] break-all leading-relaxed">{hash || '...'}</div>
-      {done && (
-        <div className="font-mono text-[9px] text-[#00e5a0] mt-1.5 tracking-wide">✓ INTEGRITY VERIFIED</div>
-      )}
-    </div>
-  )
-}
+const ACCENT = {
+  dfir: { color: '#00b4ff', hover: 'rgba(0,180,255,.25)', badge: {background:'rgba(0,180,255,.08)',color:'#00b4ff',border:'1px solid rgba(0,180,255,.15)'} },
+  grc:  { color: '#00e5a0', hover: 'rgba(0,229,160,.3)',  badge: {background:'rgba(0,229,160,.08)',color:'#00e5a0',border:'1px solid rgba(0,229,160,.2)'} },
+  life: { color: '#f5a623', hover: 'rgba(245,166,35,.3)', badge: {background:'rgba(245,166,35,.1)',color:'#f5a623',border:'1px solid rgba(245,166,35,.2)'} },
+} as const
 
 export default function Projects() {
   const ref = useRef(null)
   const inView = useInView(ref, {once:true, margin:"-60px"})
   const words = useCountUp(7071, inView, 1800)
-  const refs = useCountUp(29, inView, 1400)
-  const phases = useCountUp(6, inView, 900)
+  const phaseCount = useCountUp(6, inView, 900)
 
   return (
     <section id="projects" ref={ref} className="py-28" style={{background:'#070e17'}}>
@@ -64,20 +41,29 @@ export default function Projects() {
         <motion.h2 initial={{opacity:0,y:24}} animate={inView?{opacity:1,y:0}:{}}
           transition={{duration:.6,delay:.1}}
           className="font-syne font-extrabold tracking-tighter leading-tight mb-4"
-          style={{fontSize:'clamp(30px,4vw,46px)'}}>Projects</motion.h2>
+          style={{fontSize:'clamp(30px,4vw,46px)'}}>Projects &amp; Research</motion.h2>
         <motion.p initial={{opacity:0,y:24}} animate={inView?{opacity:1,y:0}:{}}
           transition={{duration:.6,delay:.2}}
-          className="text-[15px] text-[#5d7a96] leading-relaxed max-w-lg mb-14">
-          DFIR investigations and degree work alongside AI-built tools for everyday challenges.
+          className="text-[15px] text-[#5d7a96] leading-relaxed max-w-xl mb-5">
+          Governance and compliance work, forensic coursework and research from my degree, alongside tools I build independently.
         </motion.p>
+        <motion.div initial={{opacity:0,y:24}} animate={inView?{opacity:1,y:0}:{}}
+          transition={{duration:.6,delay:.25}}
+          className="flex items-center flex-wrap gap-x-5 gap-y-2 font-mono text-[10px] tracking-[1.5px] uppercase text-[#5d7a96] mb-14 rounded-lg px-4 py-3"
+          style={{background:'#0d1825',border:'1px solid #1a2d42'}}>
+          <span className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00e5a0]" style={{animation:'pulseDot 2.2s ease infinite'}}/>
+            Evidence Register
+          </span>
+          <span className="text-[#1a2d42] hidden sm:inline">│</span>
+          <span>{projects.length} cases indexed</span>
+          <span className="text-[#1a2d42] hidden sm:inline">│</span>
+          <span className="text-[#00e5a0]">✓ Custody unbroken</span>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {projects.map((p, i) => {
-            const hoverBorder = p.type==='dfir' ? 'rgba(0,180,255,.25)' : 'rgba(245,166,35,.3)'
-            const badgeStyle = p.type==='dfir'
-              ? {background:'rgba(0,180,255,.08)',color:'#00b4ff',border:'1px solid rgba(0,180,255,.15)'}
-              : {background:'rgba(245,166,35,.1)',color:'#f5a623',border:'1px solid rgba(245,166,35,.2)'}
-            const isCloud = p.title === 'Cloud Forensics Research'
+            const accent = ACCENT[p.type]
 
             return (
               <motion.div key={p.title}
@@ -85,14 +71,23 @@ export default function Projects() {
                 transition={{duration:.6,delay:.15+i*.1}}
                 className="flex flex-col rounded-2xl overflow-hidden"
                 style={{background:'#0d1825',border:'1px solid #1a2d42',
-                  opacity:p.dim?0.42:1,pointerEvents:p.dim?'none':'auto',
                   transition:'transform .25s,box-shadow .25s,border-color .25s'}}
-                onMouseEnter={e=>{e.currentTarget.style.borderColor=hoverBorder;e.currentTarget.style.transform='translateY(-4px)';e.currentTarget.style.boxShadow='0 20px 52px rgba(0,0,0,.5)'}}
+                onMouseEnter={e=>{e.currentTarget.style.borderColor=accent.hover;e.currentTarget.style.transform='translateY(-4px)';e.currentTarget.style.boxShadow='0 20px 52px rgba(0,0,0,.5)'}}
                 onMouseLeave={e=>{e.currentTarget.style.borderColor='#1a2d42';e.currentTarget.style.transform='translateY(0)';e.currentTarget.style.boxShadow='none'}}>
 
-                <div className="flex justify-between items-start px-6 pt-6">
+                {/* Case file header strip */}
+                <div className="flex items-center justify-between gap-3 px-6 py-2.5"
+                  style={{background:'#111f30',borderBottom:'1px solid #1a2d42'}}>
+                  <span className="font-mono text-[9.5px] tracking-[1.5px] text-[#5d7a96]">{p.caseRef}</span>
+                  <span className="font-mono text-[9px] tracking-[1.5px] flex items-center gap-1.5" style={{color:accent.color}}>
+                    <span className="w-1 h-1 rounded-full flex-shrink-0" style={{background:accent.color}}/>
+                    {p.wip ? 'OPEN' : 'CLOSED'}
+                  </span>
+                </div>
+
+                <div className="flex justify-between items-start gap-3 px-6 pt-5">
                   <span className="text-3xl">{p.icon}</span>
-                  <span className="font-mono text-[10px] tracking-wide px-3 py-1 rounded-full" style={badgeStyle}>{p.badge}</span>
+                  <span className="font-mono text-[10px] tracking-wide px-3 py-1 rounded-full" style={accent.badge}>{p.badge}</span>
                 </div>
 
                 {p.wip && (
@@ -103,24 +98,55 @@ export default function Projects() {
                   </div>
                 )}
 
-                {/* SHA hash verifier on cloud forensics card */}
-                {isCloud && <HashVerifier />}
-
-                {/* Evidence counters on cloud forensics card */}
-                {isCloud && (
-                  <div className="mx-6 mb-2 grid grid-cols-3 gap-2">
-                    {[{v:words,l:'words'},{v:refs,l:'references'},{v:phases,l:'phases'}].map(s=>(
-                      <div key={s.l} className="rounded-md p-2 text-center" style={{background:'#111f30',border:'1px solid #1a2d42'}}>
-                        <div className="font-syne font-bold text-[16px] text-[#00b4ff]">{s.v.toLocaleString()}</div>
-                        <div className="font-mono text-[9px] text-[#5d7a96] mt-0.5">{s.l}</div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
                 <div className="flex-1 px-6 py-4">
-                  <div className="font-syne font-bold text-[17px] mb-2">{p.title}</div>
+                  <div className="font-syne font-bold text-[17px] mb-1.5">{p.title}</div>
+
+                  {p.team && (
+                    <div className="inline-flex items-center gap-1.5 font-mono text-[10px] text-[#5d7a96] mb-3">
+                      <span style={{color:accent.color}}>◈</span> {p.team}
+                    </div>
+                  )}
+
                   <p className="text-[14px] text-[#5d7a96] leading-relaxed mb-4">{p.desc}</p>
+
+                  {/* Dissertation counters */}
+                  {p.counters && (
+                    <div className="grid grid-cols-2 gap-2 mb-4">
+                      {[{v:words.toLocaleString(),l:'words'},{v:phaseCount,l:'phase framework'}].map(s=>(
+                        <div key={s.l} className="rounded-md p-2 text-center" style={{background:'#111f30',border:'1px solid #1a2d42'}}>
+                          <div className="font-syne font-bold text-[16px] text-[#00b4ff]">{s.v}</div>
+                          <div className="font-mono text-[9px] text-[#5d7a96] mt-0.5">{s.l}</div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Self-designed framework phases */}
+                  {p.phases && (
+                    <div className="rounded-lg p-4 mb-4" style={{background:'#111f30',border:'1px solid #1a2d42'}}>
+                      <div className="font-mono text-[9px] tracking-[2px] uppercase mb-3" style={{color:accent.color}}>
+                        Framework I designed
+                      </div>
+                      <ol className="space-y-1.5">
+                        {p.phases.map((ph, pi)=>(
+                          <li key={pi} className="flex gap-2.5 text-[12px] text-[#5d7a96] leading-snug">
+                            <span className="font-mono text-[10px] flex-shrink-0 mt-0.5" style={{color:accent.color}}>
+                              {String(pi+1).padStart(2,'0')}
+                            </span>
+                            {ph}
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
+                  )}
+
+                  {/* Themed widget: evidence hash for casework, control matrix for GRC */}
+                  <div className="mb-4">
+                    {p.type === 'grc'
+                      ? <ControlMatrix seed={p.caseRef}/>
+                      : <EvidenceHash seed={p.caseRef}/>}
+                  </div>
+
                   <div className="flex flex-wrap gap-1.5">
                     {p.tags.map(t=>(
                       <span key={t} className="font-mono text-[10px] px-2 py-1 rounded text-[#5d7a96]"
@@ -132,19 +158,13 @@ export default function Projects() {
                 {p.links.length>0 && (
                   <div className="flex gap-5 px-6 py-3.5" style={{borderTop:'1px solid #1a2d42'}}>
                     {p.links.map(l=>(
-                      <a key={l.label} href={l.href}
-                        target={l.href!=='#'?'_blank':undefined} rel="noreferrer"
+                      <a key={l.label} href={l.href} target="_blank" rel="noreferrer"
                         className="font-mono text-[11px] text-[#5d7a96] no-underline flex items-center gap-1 transition-colors"
                         onMouseEnter={e=>e.currentTarget.style.color=l.amber?'#f5a623':'#00b4ff'}
                         onMouseLeave={e=>e.currentTarget.style.color='#5d7a96'}>
                         {l.label}
                       </a>
                     ))}
-                  </div>
-                )}
-                {p.dim && (
-                  <div className="px-6 py-3.5" style={{borderTop:'1px solid #1a2d42'}}>
-                    <span className="font-mono text-[11px] text-[#5d7a96]">⏳ Coming Soon</span>
                   </div>
                 )}
               </motion.div>

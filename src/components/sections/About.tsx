@@ -1,6 +1,19 @@
 import { useRef, useEffect, useState } from "react"
 import { motion, useInView } from "framer-motion"
-import { stats, experience, certifications } from "@/data"
+import { personal, stats, experience, education, certifications } from "@/data"
+
+/** Renders **bold** segments from the bio strings so copy lives in one place. */
+function RichText({ text }: { text: string }) {
+  return (
+    <>
+      {text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
+        part.startsWith("**") && part.endsWith("**")
+          ? <strong key={i} className="text-[#dde4ed] font-medium">{part.slice(2, -2)}</strong>
+          : <span key={i}>{part}</span>
+      )}
+    </>
+  )
+}
 
 function TimelineDraw({ inView }: { inView: boolean }) {
   const lineRef = useRef<HTMLDivElement>(null)
@@ -22,19 +35,27 @@ function TimelineDraw({ inView }: { inView: boolean }) {
       </div>
 
       {/* Entries */}
-      <div className="flex flex-col justify-between gap-8 flex-1 pb-1">
+      <div className="flex flex-col justify-between gap-5 flex-1 pb-1">
         {experience.map((e, i) => (
           <motion.div key={e.role}
             initial={{opacity:0,x:-16}} animate={inView?{opacity:1,x:0}:{}}
-            transition={{duration:.6,delay:.3+i*.2}}
+            transition={{duration:.6,delay:.3+i*.15}}
             className="rounded-xl p-5"
             style={{background:'#0d1825',border:'1px solid #1a2d42'}}>
             <div className="flex items-start justify-between gap-4 mb-3">
               <div>
-                <div className="font-syne font-bold text-[16px] text-[#dde4ed]">{e.role}</div>
+                <div className="flex items-center gap-2.5 flex-wrap">
+                  <span className="font-syne font-bold text-[16px] text-[#dde4ed]">{e.role}</span>
+                  {e.meta && (
+                    <span className="font-mono text-[9px] tracking-wider uppercase px-2 py-0.5 rounded-full"
+                      style={{background:'rgba(0,229,160,.08)',color:'#00e5a0',border:'1px solid rgba(0,229,160,.2)'}}>
+                      {e.meta}
+                    </span>
+                  )}
+                </div>
                 <div className="font-mono text-[12px] text-[#00b4ff] mt-1">{e.org}</div>
               </div>
-              <span className="font-mono text-[10px] text-[#5d7a96] flex-shrink-0 mt-1">{e.period}</span>
+              <span className="font-mono text-[10px] text-[#5d7a96] flex-shrink-0 mt-1 text-right">{e.period}</span>
             </div>
             <ul className="space-y-2">
               {e.points.map((pt, j) => (
@@ -78,21 +99,13 @@ export default function About() {
               className="font-syne font-extrabold tracking-tighter leading-tight mb-7"
               style={{fontSize:'clamp(30px,4vw,46px)'}}>About Me</motion.h2>
 
-            <motion.p initial={{opacity:0,y:24}} animate={inView?{opacity:1,y:0}:{}}
-              transition={{duration:.6,delay:.1}}
-              className="text-[15px] text-[#5d7a96] leading-[1.88] mb-5">
-              Originally from <strong className="text-[#dde4ed]">Hong Kong</strong>, I relocated to the United Kingdom to pursue a career in cyber security and digital forensics. I hold a <strong className="text-[#dde4ed]">BSc (Hons) in Cyber Security and Digital Forensics (2:1)</strong> from the University of the West of England, Bristol — a programme that provided rigorous, hands-on training across the full spectrum of DFIR disciplines.
-            </motion.p>
-            <motion.p initial={{opacity:0,y:24}} animate={inView?{opacity:1,y:0}:{}}
-              transition={{duration:.6,delay:.2}}
-              className="text-[15px] text-[#5d7a96] leading-[1.88] mb-5">
-              Across three years of structured forensic investigation, I progressed from foundational case analysis through live memory acquisition, ultimately managing a <strong className="text-[#dde4ed]">complete multi-platform forensic lifecycle</strong> — spanning a laptop endpoint, Microsoft 365 cloud environment, and mobile device. I now serve as a <strong className="text-[#dde4ed]">Helpline Responder at The Cyber Helpline</strong>, handling live cases and applying investigative triage and documentation skills in a live operational environment.
-            </motion.p>
-            <motion.p initial={{opacity:0,y:24}} animate={inView?{opacity:1,y:0}:{}}
-              transition={{duration:.6,delay:.3}}
-              className="text-[15px] text-[#5d7a96] leading-[1.88]">
-              I have a strong interest in the intersection of <strong className="text-[#dde4ed]">AI, cloud environments, and the space sector</strong> — actively seeking opportunities where digital forensics and emerging technology converge. I also build practical AI-assisted tools that address real-world challenges, demonstrating initiative and technical breadth beyond traditional DFIR.
-            </motion.p>
+            {personal.bio.map((para, i) => (
+              <motion.p key={i} initial={{opacity:0,y:24}} animate={inView?{opacity:1,y:0}:{}}
+                transition={{duration:.6,delay:.1+i*.1}}
+                className="text-[15px] text-[#5d7a96] leading-[1.88] mb-5 last:mb-0">
+                <RichText text={para}/>
+              </motion.p>
+            ))}
           </div>
 
           <motion.div initial={{opacity:0,x:28}} animate={inView?{opacity:1,x:0}:{}}
@@ -102,7 +115,7 @@ export default function About() {
                 style={{background:'#0d1825',border:'1px solid #1a2d42'}}>
                 <span className="block font-syne font-extrabold text-3xl mb-1"
                   style={{color:s.green?'#00e5a0':'#00b4ff'}}>{s.n}</span>
-                <div className="font-mono text-[10px] tracking-wide text-[#5d7a96]">{s.l}</div>
+                <div className="font-mono text-[10px] tracking-wide text-[#5d7a96] leading-snug">{s.l}</div>
               </div>
             ))}
           </motion.div>
@@ -115,6 +128,29 @@ export default function About() {
             Experience <span className="flex-1 h-px bg-[#1a2d42]"/>
           </div>
           <TimelineDraw inView={inView} />
+        </motion.div>
+
+        {/* Education */}
+        <motion.div initial={{opacity:0,y:24}} animate={inView?{opacity:1,y:0}:{}}
+          transition={{duration:.6,delay:.35}} className="mt-20">
+          <div className="font-mono text-[11px] tracking-[3px] uppercase text-[#5d7a96] mb-8 flex items-center gap-3">
+            Education <span className="flex-1 h-px bg-[#1a2d42]"/>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {education.map((ed, i) => (
+              <motion.div key={ed.qualification}
+                initial={{opacity:0,y:16}} animate={inView?{opacity:1,y:0}:{}}
+                transition={{duration:.5,delay:.45+i*.08}}
+                className="rounded-xl p-5 transition-all duration-200"
+                style={{background:'#0d1825',border:'1px solid #1a2d42'}}
+                onMouseEnter={e=>{e.currentTarget.style.borderColor='rgba(0,180,255,.3)'}}
+                onMouseLeave={e=>{e.currentTarget.style.borderColor='#1a2d42'}}>
+                <div className="font-mono text-[10px] text-[#5d7a96] mb-2.5">{ed.period}</div>
+                <div className="font-syne font-bold text-[14px] text-[#dde4ed] leading-snug mb-2">{ed.qualification}</div>
+                <div className="font-mono text-[11px] text-[#00b4ff] leading-snug">{ed.org}</div>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
 
         {/* Certifications */}
@@ -130,7 +166,7 @@ export default function About() {
                 transition={{duration:.5,delay:.5+i*.07}}
                 className="rounded-xl p-5 flex flex-col gap-4 transition-all duration-200"
                 style={{background:'#0d1825',border:'1px solid #1a2d42'}}
-                onMouseEnter={e=>{e.currentTarget.style.borderColor='rgba(0,180,255,.3)'}}
+                onMouseEnter={e=>{e.currentTarget.style.borderColor=c.held?'rgba(0,229,160,.3)':'rgba(245,166,35,.3)'}}
                 onMouseLeave={e=>{e.currentTarget.style.borderColor='#1a2d42'}}>
                 <div className="flex items-start justify-between gap-3">
                   <div>
@@ -138,7 +174,9 @@ export default function About() {
                     <div className="font-mono text-[11px] text-[#5d7a96] mt-1.5">{c.issuer}</div>
                   </div>
                   <span className="font-mono text-[10px] px-2.5 py-1 rounded-full flex-shrink-0 whitespace-nowrap"
-                    style={{background:'rgba(0,229,160,.08)',color:'#00e5a0',border:'1px solid rgba(0,229,160,.2)'}}>
+                    style={c.held
+                      ? {background:'rgba(0,229,160,.08)',color:'#00e5a0',border:'1px solid rgba(0,229,160,.2)'}
+                      : {background:'rgba(245,166,35,.08)',color:'#f5a623',border:'1px solid rgba(245,166,35,.2)'}}>
                     {c.year}
                   </span>
                 </div>

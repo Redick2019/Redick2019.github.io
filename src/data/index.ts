@@ -2,41 +2,80 @@
 export const personal = {
   name: "Redick Ng",
   fullName: "Redick Chun-Yin Ng",
-  role: "DFIR Graduate · Cyber Helpline Responder",
+  role: "Cyber Security & Digital Forensics Graduate",
+  currentRole: "First Line Responder · The Cyber Helpline",
   location: "Cheltenham, UK",
   email: "redickunitedkingdom@proton.me",
   github: "https://github.com/Redick2019",
   linkedin: "https://www.linkedin.com/in/redickng",
-  tagline: "I investigate digital incidents and build AI-powered tools to solve real-world problems.",
+  tagline: "I work live cybercrime cases as a first line responder, and I'm building my career in governance, risk and compliance.",
+  // **text** renders as emphasised
   bio: [
-    "BSc (Hons) Cyber Security and Digital Forensics graduate from UWE Bristol (2:1), now working as a Helpline Responder at The Cyber Helpline — handling live cases for victims of cybercrime — while actively seeking my first DFIR analyst role.",
-    "Across three years of structured forensic investigation, I've progressed from case analysis through live memory acquisition to managing a full multi-platform forensic lifecycle — laptop endpoint, cloud (M365), and mobile — producing a unified, defensible incident timeline using Magnet AXIOM, EnCase, and Autopsy.",
-    "My dissertation explored digital forensics in cloud environments, including a 6-phase cloud forensics framework covering GDPR, the U.S. CLOUD Act, and chain-of-custody standards. I'm also passionate about using AI as a development partner to build practical tools that solve real-world problems.",
+    "Originally from **Hong Kong**, I moved to the United Kingdom to build a career in cyber security. I hold a **BSc (Hons) in Cyber Security and Digital Forensics (2:1)** from the University of the West of England, Bristol, after completing a computing foundation programme at Bellerbys College, Brighton.",
+    "I volunteer as a **First Line Responder at The Cyber Helpline**, handling live cases involving phishing, malware and unauthorised access — carrying out triage, following escalation protocol, and documenting cases for handover.",
+    "My strongest material sits in **governance, risk and compliance**: an ISO/IEC 27001 Annex A applicability scoping exercise, secure code remediation tested against the DISA STIG checklist, and framework selection analysis for an ISMS case study. My dissertation was a **secondary research study** on digital forensics in cloud computing, for which I designed a six-phase conceptual framework addressing jurisdiction, chain of custody, and the tension between GDPR and the U.S. CLOUD Act.",
   ],
 }
 
 // ─── SKILLS ────────────────────────────────────────────────
+// Context note: unless stated otherwise, tooling below was applied in
+// university coursework, certification labs, or volunteer casework.
+export const skillsNote =
+  "Applied in university coursework, certification labs and volunteer casework."
+
 export const skillGroups = [
+  {
+    title: "Governance, Risk & Compliance",
+    pills: [
+      "ISO/IEC 27001",
+      "Statement of Applicability",
+      "NIST CSF",
+      "FAIR",
+      "DISA STIG",
+      "Chain of Custody",
+    ],
+  },
+  {
+    title: "Legal & Standards",
+    pills: [
+      "GDPR",
+      "US CLOUD Act",
+      "ISO/IEC 27037",
+      "NIST SP 800-86",
+      "NISTIR 8006",
+      "ACPO Good Practice Guide",
+    ],
+  },
   {
     title: "DFIR Tools",
     pills: ["Magnet AXIOM", "EnCase", "Autopsy", "KAPE", "Volatility3", "Belkasoft", "Wireshark"],
   },
   {
-    title: "Windows Artefacts",
-    pills: ["Event Logs", "Registry Hives", "Prefetch", "Amcache", "Shimcache", ".E01 Processing", "Live Capture"],
+    title: "Acquisition & Artefacts",
+    pills: [
+      "LiME",
+      "AVML",
+      ".E01 Processing",
+      "Live Capture",
+      "Event Logs",
+      "Registry Hives",
+      "Prefetch",
+      "Amcache",
+      "Shimcache",
+    ],
   },
   {
-    title: "Acquisition & Cloud",
-    pills: ["LiME", "AVML", "M365", "Azure", "Cloud Email Artefacts", "Mobile Forensics"],
+    title: "Cloud & Mobile Forensics",
+    pills: ["M365", "Cloud Email Artefacts", "Mobile Forensics", "AWS", "Microsoft Azure"],
   },
   {
-    title: "Frameworks & Governance",
-    pills: ["MITRE ATT&CK", "ISO/IEC 27001", "NIST CSF", "FAIR", "GDPR", "US Cloud Act", "Chain of Custody"],
+    title: "SIEM, AppSec & OSINT",
+    pills: ["Splunk", "OWASP ZAP", "Shodan", "VirusTotal", "MITRE ATT&CK"],
   },
 ]
 
 // ─── PROJECTS ──────────────────────────────────────────────
-export type ProjectType = "dfir" | "life"
+export type ProjectType = "dfir" | "grc" | "life"
 
 export interface Project {
   icon: string
@@ -46,78 +85,161 @@ export interface Project {
   desc: string
   tags: string[]
   wip?: boolean
-  dim?: boolean
+  /** Decorative case reference shown in the card header */
+  caseRef: string
+  /** Group work context, e.g. "4-person group assignment · Jan–May 2025" */
+  team?: string
+  /** Numbered framework/model of my own design */
+  phases?: string[]
+  /** Show the word/phase counters (dissertation card only) */
+  counters?: boolean
   links: { label: string; href: string; amber?: boolean }[]
 }
 
 export const projects: Project[] = [
   {
-    icon: "🔬",
-    badge: "DFIR · UWE Bristol",
-    type: "dfir",
-    title: "Multi-Platform Forensic Lifecycle",
-    desc: "Full post-acquisition forensic lifecycle across laptop endpoint, M365 cloud, and mobile device using Magnet AXIOM, EnCase and Autopsy. Produced a unified, defensible incident timeline linking activity across all three evidence sources.",
-    tags: ["Magnet AXIOM", "EnCase", "Autopsy", "M365", "Windows Artefacts"],
-    links: [{ label: "📄 Case Write-up (soon)", href: "#" }],
+    icon: "🛡️",
+    badge: "GRC · UWE Bristol",
+    type: "grc",
+    caseRef: "CASE-GRC-2025-001",
+    title: "ISO/IEC 27001 ISMS Proposal",
+    team: "4-person group assignment · Jan–May 2025",
+    desc: "An Information Security Management System proposal aligned to ISO/IEC 27001, pairing Annex A control scoping with hands-on remediation of a deliberately vulnerable codebase. Completed an Annex A applicability scoping exercise in Excel — deciding which controls were relevant and documenting the justification for each to form the Statement of Applicability — then tested a pre-built codebase with known security gaps against the DISA STIG checklist, making direct remediation changes for issues including HTTPS enforcement and password protection, and tracking findings from critical to low priority within the deadline. Built and delivered the presentation explaining the methodology and the reasoning behind each control decision.",
+    tags: ["ISO/IEC 27001", "Statement of Applicability", "DISA STIG", "Secure Code Remediation", "Risk Prioritisation"],
+    links: [],
+  },
+  {
+    icon: "🏛️",
+    badge: "GRC · UFCFRB-15-3",
+    type: "grc",
+    caseRef: "CASE-GRC-2025-002",
+    title: "ISMS Case Study & Framework Selection",
+    team: "6-person group assignment · Jan–Mar 2025",
+    desc: "Security Management in Practice — presenting an information security management case study to the executive team of a fictional organisation. Justified why a formal ISMS was critical to the business and recommended a framework by weighing ISO/IEC 27001 against the NIST Cybersecurity Framework, alongside FAIR risk quantification to express exposure in terms the executive audience could act on.",
+    tags: ["ISO/IEC 27001", "NIST CSF", "FAIR", "ISMS", "Executive Communication"],
+    links: [],
   },
   {
     icon: "☁️",
-    badge: "DFIR · Dissertation",
+    badge: "Research · Dissertation",
     type: "dfir",
-    title: "Cloud Forensics Research",
-    desc: "7,071-word independent dissertation evaluating technical, legal and organisational challenges of digital forensics in cloud environments. Developed an original 6-phase cloud forensics framework covering GDPR, the U.S. CLOUD Act and SHA-256 chain-of-custody standards.",
-    tags: ["Cloud Forensics", "GDPR", "NIST IR 8006", "ISO/IEC 27001", "Framework Design"],
+    caseRef: "CASE-RES-2025-001",
+    title: "Digital Forensics in Cloud Computing",
+    desc: "7,071-word dissertation on the challenges, techniques and legal implications of digital forensics in cloud environments. Reviews jurisdiction, multi-tenancy, encryption and data volatility through existing literature — citing tooling used in other researchers' work (FROST, Magnet AXIOM Cloud, Cellebrite UFED, AWS CloudTrail, EnCase, Volatility) — alongside a comparative analysis of GDPR against the U.S. CLOUD Act, referenced to ISO/IEC 27037, ISO/IEC 27001, NIST SP 800-86, NISTIR 8006 and the ACPO Good Practice Guide. Culminates in a six-phase conceptual framework of my own design.",
+    phases: [
+      "Incident Identified and Scope",
+      "Legal Authorization and Jurisdiction Assessment",
+      "Evidence Collection Orchestration",
+      "Evidence Preservation and Storage",
+      "Evidence Examination and Analysis",
+      "Report Generation and Legal Presentation",
+    ],
+    counters: true,
+    tags: ["Cloud Forensics", "GDPR", "US CLOUD Act", "ISO/IEC 27037", "NIST SP 800-86", "NISTIR 8006", "ACPO Guidelines"],
     links: [{ label: "📄 Read Dissertation", href: "/FYP_22034405.pdf" }],
   },
   {
-    icon: "🤖",
-    badge: "DFIR · AI Tooling",
+    icon: "🔬",
+    badge: "DFIR · UWE Bristol",
     type: "dfir",
-    title: "AI Conversation Logger",
-    desc: "A forensic-grade tool designed to capture, structure and analyse interactions with AI language models. Built to investigate the evidential and behavioural characteristics of LLM-generated outputs — exploring how conversational data can be preserved, examined and presented within a digital forensics investigation framework.",
-    tags: ["Python", "LLM Analysis", "Log Forensics", "AI"],
-    wip: true,
-    links: [
-      { label: "↗ GitHub", href: "https://github.com/Redick2019/ai-logging-tool" },
-    ],
+    caseRef: "CASE-DFIR-2025-003",
+    title: "Multi-Platform Forensic Lifecycle",
+    desc: "Year 3 coursework covering the post-acquisition forensic lifecycle across a laptop endpoint, M365 cloud environment and mobile device using Magnet AXIOM, EnCase and Autopsy — processing .E01 images and Windows artefacts including event logs, registry hives, Prefetch, Amcache and Shimcache, then building a unified incident timeline linking activity across all three evidence sources.",
+    tags: ["Magnet AXIOM", "EnCase", "Autopsy", ".E01 Processing", "M365", "Mobile Forensics", "Timeline Analysis"],
+    links: [],
   },
   {
     icon: "🇬🇧",
     badge: "Life Labs · Civic Tech",
     type: "life",
+    caseRef: "PROJ-LIFE-2024-001",
     title: "BNO Settlement Checklist",
-    desc: "AI-assisted web app helping Hong Kong BNO visa holders navigate UK settlement (ILR) applications. Auto-generates personalised document checklists, tracks the 180-day absence rule, and calculates the earliest eligible application date.",
-    tags: ["Vanilla JS", "LocalStorage", "PWA", "Immigration Law"],
+    desc: "A React and TypeScript web application helping Hong Kong BN(O) visa holders navigate the UK settlement (ILR) process. Auto-generates personalised document checklists, tracks the 180-day absence rule, and calculates the earliest eligible application date. Designed, built and deployed independently, then restructured over several rounds in response to real user feedback. Built with AI tooling (including Claude) as a development partner — I directed the architecture and the decisions, and used AI to accelerate debugging and refactoring.",
+    tags: ["React", "TypeScript", "AI-Assisted Development", "UK Immigration Rules"],
     links: [
       { label: "↗ Live App", href: "https://redick2019.github.io/BNO_CheckList/", amber: true },
-      { label: "GitHub", href: "https://github.com/Redick2019/bno-checklist" },
+      { label: "GitHub", href: "https://github.com/Redick2019/BNO_CheckList" },
     ],
+  },
+  {
+    icon: "🤖",
+    badge: "DFIR · AI Tooling",
+    type: "dfir",
+    caseRef: "CASE-DFIR-2026-001",
+    title: "AI Conversation Logger",
+    desc: "A forensic-grade tool designed to capture, structure and analyse interactions with AI language models — exploring how conversational data generated by LLMs could be preserved, examined and presented within a digital forensics investigation framework.",
+    tags: ["Python", "LLM Analysis", "Log Forensics", "AI"],
+    wip: true,
+    links: [],
   },
 ]
 
 // ─── EXPERIENCE ────────────────────────────────────────────
-export const experience = [
+export interface Role {
+  role: string
+  org: string
+  period: string
+  meta?: string
+  points: string[]
+}
+
+export const experience: Role[] = [
   {
-    role: "Helpline Responder",
+    role: "First Line Responder",
     org: "The Cyber Helpline",
     period: "Jan 2026 – Present",
-    type: "dfir" as ProjectType,
+    meta: "Voluntary",
     points: [
-      "Completed structured responder training — including a simulated live assessment under emotional pressure — and now handle live cases independently.",
-      "Actively respond to real victims of cybercrime across the full digital threat taxonomy: account compromise, malware, stalking, fraud, and identity theft.",
-      "Produce structured case notes and escalation handovers from live calls within a shared ticket system — demonstrating DFIR-grade documentation discipline.",
+      "Handle live cases involving phishing, malware and unauthorised access, supporting victims of cybercrime directly.",
+      "Carry out live triage and apply the escalation protocol for cases needing specialist support.",
+      "Produce structured case documentation for handover within a shared ticket system.",
     ],
   },
   {
-    role: "BSc Cyber Security & Digital Forensics (2:1)",
-    org: "University of the West of England, Bristol",
-    period: "Sept 2022 – July 2025",
-    type: "dfir" as ProjectType,
+    role: "Operations Team Member",
+    org: "Auntie Anne's Pretzel Bar, Cheltenham",
+    period: "Sept 2022 – Present",
     points: [
-      "Year 3: Full multi-platform forensic lifecycle (laptop, M365 cloud, mobile) using Magnet AXIOM, EnCase, Autopsy.",
-      "Year 2: Live memory acquisition with LiME, AVML, KAPE; analysis with Volatility3 and Wireshark.",
-      "Delivered expert-witness testimony in a simulated adversarial court proceeding.",
+      "Maintain documentation and process compliance across daily operations.",
+      "Trusted with cash handling within six months of joining.",
     ],
+  },
+  {
+    role: "Photography Assistant",
+    org: "KaFu Studio, Greenwich, London",
+    period: "Apr – Jul 2022",
+    points: [
+      "Coordinated logistics and communication between clients, photographers and on-site staff for wedding shoots.",
+      "Maintained and prepared clothing used across shoots.",
+    ],
+  },
+  {
+    role: "Office Assistant",
+    org: "Brighten HK, Taiwan",
+    period: "2020 – 2021",
+    points: [
+      "Liaised with suppliers and dealers on pricing and samples.",
+      "Maintained sales and stock records in Excel and built PowerPoint presentations.",
+    ],
+  },
+]
+
+// ─── EDUCATION ─────────────────────────────────────────────
+export const education = [
+  {
+    qualification: "BSc (Hons) Cyber Security and Digital Forensics — 2:1",
+    org: "University of the West of England, Bristol",
+    period: "2022 – 2025",
+  },
+  {
+    qualification: "Foundation Programme (Computing)",
+    org: "Bellerbys College, Brighton",
+    period: "2021 – 2022",
+  },
+  {
+    qualification: "Secondary education to Form 6",
+    org: "Hong Kong",
+    period: "— 2021",
   },
 ]
 
@@ -125,26 +247,86 @@ export const experience = [
 export interface Certification {
   name: string
   issuer: string
+  /** Award date, or validity window */
   year: string
-  active: boolean
-  // screenshot in public/certs/ — the card hides the image automatically if the file is missing
+  /** false = actively studying towards, not yet held */
+  held: boolean
+  /** screenshot in public/certs/ — the card hides the image if the file is missing */
   image?: string
 }
 
 export const certifications: Certification[] = [
-  { name: "AWS Cloud Practitioner (CCP)", issuer: "Amazon Web Services", year: "2025", active: true, image: "/certs/aws-ccp.png" },
-  { name: "Azure AI Fundamentals (AI-900)", issuer: "Microsoft", year: "2024", active: true, image: "/certs/azure-ai-900.png" },
-  { name: "Belkasoft: Windows Forensics", issuer: "Belkasoft", year: "Feb 2025", active: true, image: "/certs/belkasoft-windows-forensics.png" },
-  { name: "SOC Operations Bootcamp (Splunk)", issuer: "ThinkCloudy", year: "2025", active: true, image: "/certs/soc-bootcamp.png" },
-  { name: "ISC2 Associate Member", issuer: "ISC2", year: "2024–Present", active: true, image: "/certs/isc2-associate.png" },
+  {
+    name: "AWS Certified Cloud Practitioner",
+    issuer: "Amazon Web Services",
+    year: "Valid to May 2028",
+    held: true,
+    image: "/certs/aws-ccp.png",
+  },
+  {
+    name: "Microsoft Azure AI Fundamentals (AI-900)",
+    issuer: "Microsoft",
+    year: "May 2024",
+    held: true,
+    image: "/certs/azure-ai-900.png",
+  },
+  {
+    name: "Belkasoft Windows Forensics",
+    issuer: "Belkasoft",
+    year: "Feb 2025",
+    held: true,
+    image: "/certs/belkasoft-windows-forensics.png",
+  },
+  {
+    name: "SOC Operations Bootcamp (Splunk)",
+    issuer: "ThinkCloudy",
+    year: "2025",
+    held: true,
+    image: "/certs/soc-bootcamp.png",
+  },
+  {
+    name: "CompTIA Security+",
+    issuer: "CompTIA",
+    year: "Studying towards",
+    held: false,
+  },
 ]
 
 // ─── STATS ─────────────────────────────────────────────────
 export const stats = [
-  { n: "2:1", l: "BSc DFIR Degree" },
-  { n: "4", l: "Live Projects" },
-  { n: "5", l: "Certifications" },
+  { n: "2:1", l: "BSc Cyber Security & DFIR" },
+  { n: "4", l: "Certifications Held" },
+  { n: "6", l: "Projects & Research" },
   { n: "Open", l: "To Opportunities", green: true },
+]
+
+// ─── CURRENT FOCUS ─────────────────────────────────────────
+export interface FocusItem {
+  status: string
+  statusColor: "blue" | "amber" | "green"
+  title: string
+  desc: string
+}
+
+export const currentFocus: FocusItem[] = [
+  {
+    status: "Studying",
+    statusColor: "blue",
+    title: "CompTIA Security+",
+    desc: "Actively studying towards certification — building the baseline security knowledge that GRC and SOC roles ask for.",
+  },
+  {
+    status: "Scoping",
+    statusColor: "amber",
+    title: "Personal Home Lab",
+    desc: "In the early stages of scoping a home lab for hands-on risk and security assessment practice. Not yet built — this is planning, not a finished environment.",
+  },
+  {
+    status: "Searching",
+    statusColor: "green",
+    title: "GRC / Compliance & SOC Analyst Roles",
+    desc: "Actively job searching across the UK. Leaning towards governance, risk and compliance where my strongest material sits, while keeping SOC and technical analyst options open.",
+  },
 ]
 
 // ─── EVENTS ────────────────────────────────────────────────

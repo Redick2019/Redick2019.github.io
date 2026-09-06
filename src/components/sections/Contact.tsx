@@ -1,6 +1,7 @@
 import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
 import { personal } from "@/data"
+import { ClassificationBar } from "../ui/effects"
 
 export default function Contact() {
   const ref = useRef(null)
@@ -27,7 +28,7 @@ export default function Contact() {
               Let's Talk.
             </h2>
             <p className="text-[15px] text-[#5d7a96] leading-relaxed max-w-sm mx-auto mb-8">
-              Open to DFIR analyst roles, IR positions, and collaborations. Also happy to chat about forensics, AI tooling, or cloud security.
+              Actively seeking GRC and compliance roles or SOC analyst positions across the UK. Also happy to chat about ISMS work, cloud forensics, or AI-assisted development.
             </p>
             <div className="flex justify-center gap-3 flex-wrap">
               {links.map(l => (
@@ -50,6 +51,8 @@ export default function Contact() {
         <span>© 2026 {personal.name} — React + Vite · GitHub Pages</span>
         <a href="#home" className="text-[#5d7a96] no-underline transition-colors hover:text-[#00b4ff]">↑ back_to_top</a>
       </footer>
+
+      <ClassificationBar />
     </>
   )
 }

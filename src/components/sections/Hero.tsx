@@ -4,15 +4,15 @@ import { BackgroundBeams, PacketBars } from "../ui/effects"
 import { personal } from "@/data"
 
 const LINES = [
-  '// Cyber Helpline Responder — open to DFIR roles',
+  '// First Line Responder — seeking GRC & SOC roles',
   '{',
   '  "name": "Redick Chun-Yin Ng",',
   '  "degree": "BSc Cyber Security & DFIR (2:1)",',
-  '  "role": "Helpline Responder · Live Cases",',
+  '  "role": "First Line Responder · Cyber Helpline",',
   '  "location": "Cheltenham, UK",',
   '  "status": "open_to_work",',
-  '  "tools": ["AXIOM", "EnCase", "Volatility3"],',
-  '  "focus": "DFIR · Cloud · Space Sector"',
+  '  "focus": ["GRC", "Compliance", "SOC"],',
+  '  "studying": "CompTIA Security+"',
   '}',
 ]
 
@@ -87,7 +87,7 @@ export default function Hero() {
               transition={{duration:.7,delay:.2}}
               className="flex items-center gap-3 font-mono text-[11px] tracking-[3px] uppercase text-[#00b4ff] mb-6">
               <span className="w-7 h-px bg-[#00b4ff] flex-shrink-0"/>
-              Digital Forensics &amp; Incident Response
+              Governance, Risk &amp; Compliance · DFIR
             </motion.div>
 
             <motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{duration:.7,delay:.3}}>
@@ -138,7 +138,7 @@ export default function Hero() {
             </div>
             <div className="absolute -bottom-4 -left-5 font-mono text-[11px] text-[#f5a623] px-4 py-2.5 rounded-lg tracking-wide"
               style={{background:'#0d1825',border:'1px solid rgba(245,166,35,.3)',boxShadow:'0 8px 24px rgba(0,0,0,.4)'}}>
-              ⚡ Cyber Helpline · Live Casework
+              ⚡ Cyber Helpline · Live Cases
             </div>
           </motion.div>
         </div>
