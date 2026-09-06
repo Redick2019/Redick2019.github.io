@@ -7,7 +7,7 @@ import About from "./components/sections/About"
 import Now from "./components/sections/Now"
 import Events from "./components/sections/Events"
 import Contact from "./components/sections/Contact"
-import { WaveDivider, ScanLine, BranchDivider } from "./components/ui/effects"
+import { WaveDivider, ScanLine, ChainOfCustody } from "./components/ui/effects"
 
 export default function App() {
   return (
@@ -19,7 +19,7 @@ export default function App() {
       <Tracks />
       <ScanLine />
       <Projects />
-      <BranchDivider />
+      <ChainOfCustody />
       <Skills />
       <About />
       <Now />

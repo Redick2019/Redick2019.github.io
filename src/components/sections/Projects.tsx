@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from "react"
 import { motion, useInView } from "framer-motion"
 import { projects } from "@/data"
+import { EvidenceHash, ControlMatrix } from "../ui/effects"
 
 function useCountUp(target: number, trigger: boolean, duration = 1600) {
   const [val, setVal] = useState(0)
@@ -46,12 +47,19 @@ export default function Projects() {
           className="text-[15px] text-[#5d7a96] leading-relaxed max-w-xl mb-5">
           Governance and compliance work, forensic coursework and research from my degree, alongside tools I build independently.
         </motion.p>
-        <motion.p initial={{opacity:0,y:24}} animate={inView?{opacity:1,y:0}:{}}
+        <motion.div initial={{opacity:0,y:24}} animate={inView?{opacity:1,y:0}:{}}
           transition={{duration:.6,delay:.25}}
-          className="font-mono text-[11px] text-[#5d7a96] leading-relaxed max-w-xl mb-14 rounded-lg px-4 py-3"
+          className="flex items-center flex-wrap gap-x-5 gap-y-2 font-mono text-[10px] tracking-[1.5px] uppercase text-[#5d7a96] mb-14 rounded-lg px-4 py-3"
           style={{background:'#0d1825',border:'1px solid #1a2d42'}}>
-          <span className="text-[#00b4ff]">ℹ</span> Where work was produced in a group, my individual contribution is stated separately.
-        </motion.p>
+          <span className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00e5a0]" style={{animation:'pulseDot 2.2s ease infinite'}}/>
+            Evidence Register
+          </span>
+          <span className="text-[#1a2d42] hidden sm:inline">│</span>
+          <span>{projects.length} cases indexed</span>
+          <span className="text-[#1a2d42] hidden sm:inline">│</span>
+          <span className="text-[#00e5a0]">✓ Custody unbroken</span>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {projects.map((p, i) => {
@@ -67,7 +75,17 @@ export default function Projects() {
                 onMouseEnter={e=>{e.currentTarget.style.borderColor=accent.hover;e.currentTarget.style.transform='translateY(-4px)';e.currentTarget.style.boxShadow='0 20px 52px rgba(0,0,0,.5)'}}
                 onMouseLeave={e=>{e.currentTarget.style.borderColor='#1a2d42';e.currentTarget.style.transform='translateY(0)';e.currentTarget.style.boxShadow='none'}}>
 
-                <div className="flex justify-between items-start gap-3 px-6 pt-6">
+                {/* Case file header strip */}
+                <div className="flex items-center justify-between gap-3 px-6 py-2.5"
+                  style={{background:'#111f30',borderBottom:'1px solid #1a2d42'}}>
+                  <span className="font-mono text-[9.5px] tracking-[1.5px] text-[#5d7a96]">{p.caseRef}</span>
+                  <span className="font-mono text-[9px] tracking-[1.5px] flex items-center gap-1.5" style={{color:accent.color}}>
+                    <span className="w-1 h-1 rounded-full flex-shrink-0" style={{background:accent.color}}/>
+                    {p.wip ? 'OPEN' : 'CLOSED'}
+                  </span>
+                </div>
+
+                <div className="flex justify-between items-start gap-3 px-6 pt-5">
                   <span className="text-3xl">{p.icon}</span>
                   <span className="font-mono text-[10px] tracking-wide px-3 py-1 rounded-full" style={accent.badge}>{p.badge}</span>
                 </div>
@@ -122,30 +140,12 @@ export default function Projects() {
                     </div>
                   )}
 
-                  {/* My individual contribution — kept distinct from group output */}
-                  {p.contribution && (
-                    <div className="rounded-lg p-4 mb-4"
-                      style={{background:'rgba(0,180,255,.04)',borderLeft:`3px solid ${accent.color}`}}>
-                      <div className="font-mono text-[9px] tracking-[2px] uppercase mb-2.5" style={{color:accent.color}}>
-                        {p.team ? 'My contribution' : 'How I built it'}
-                      </div>
-                      <ul className="space-y-2">
-                        {p.contribution.map((c, ci)=>(
-                          <li key={ci} className="flex gap-2 text-[12.5px] text-[#5d7a96] leading-relaxed">
-                            <span className="flex-shrink-0 mt-0.5" style={{color:accent.color}}>›</span>{c}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {/* Scope limitation */}
-                  {p.caveat && (
-                    <div className="flex gap-2 rounded-md px-3 py-2.5 mb-4 font-mono text-[10.5px] text-[#5d7a96] leading-relaxed"
-                      style={{background:'rgba(245,166,35,.05)',border:'1px solid rgba(245,166,35,.15)'}}>
-                      <span className="text-[#f5a623] flex-shrink-0">⚠</span>{p.caveat}
-                    </div>
-                  )}
+                  {/* Themed widget: evidence hash for casework, control matrix for GRC */}
+                  <div className="mb-4">
+                    {p.type === 'grc'
+                      ? <ControlMatrix seed={p.caseRef}/>
+                      : <EvidenceHash seed={p.caseRef}/>}
+                  </div>
 
                   <div className="flex flex-wrap gap-1.5">
                     {p.tags.map(t=>(

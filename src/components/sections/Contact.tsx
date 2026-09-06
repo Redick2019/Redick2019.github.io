@@ -1,6 +1,7 @@
 import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
 import { personal } from "@/data"
+import { ClassificationBar } from "../ui/effects"
 
 export default function Contact() {
   const ref = useRef(null)
@@ -50,6 +51,8 @@ export default function Contact() {
         <span>© 2026 {personal.name} — React + Vite · GitHub Pages</span>
         <a href="#home" className="text-[#5d7a96] no-underline transition-colors hover:text-[#00b4ff]">↑ back_to_top</a>
       </footer>
+
+      <ClassificationBar />
     </>
   )
 }

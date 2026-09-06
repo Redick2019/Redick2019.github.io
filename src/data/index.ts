@@ -30,41 +30,47 @@ export const skillGroups = [
       "ISO/IEC 27001",
       "Statement of Applicability",
       "NIST CSF",
+      "FAIR",
       "DISA STIG",
-      "GDPR",
-      "US CLOUD Act",
       "Chain of Custody",
     ],
   },
   {
-    title: "DFIR Tools",
+    title: "Legal & Standards",
     pills: [
-      "Magnet AXIOM",
-      "EnCase",
-      "Autopsy",
-      "KAPE",
-      "Volatility3",
-      "Belkasoft",
-      "Wireshark",
-      "LiME",
-      "AVML",
+      "GDPR",
+      "US CLOUD Act",
+      "ISO/IEC 27037",
+      "NIST SP 800-86",
+      "NISTIR 8006",
+      "ACPO Good Practice Guide",
     ],
   },
   {
-    title: "Windows Artefacts",
-    pills: ["Event Logs", "Registry Hives", "Prefetch", "Amcache"],
+    title: "DFIR Tools",
+    pills: ["Magnet AXIOM", "EnCase", "Autopsy", "KAPE", "Volatility3", "Belkasoft", "Wireshark"],
   },
   {
-    title: "Cloud, SIEM & AppSec",
-    pills: ["AWS", "Microsoft Azure", "Splunk", "OWASP ZAP"],
+    title: "Acquisition & Artefacts",
+    pills: [
+      "LiME",
+      "AVML",
+      ".E01 Processing",
+      "Live Capture",
+      "Event Logs",
+      "Registry Hives",
+      "Prefetch",
+      "Amcache",
+      "Shimcache",
+    ],
   },
   {
-    title: "OSINT & Threat Intel",
-    pills: ["Shodan", "VirusTotal", "MITRE ATT&CK"],
+    title: "Cloud & Mobile Forensics",
+    pills: ["M365", "Cloud Email Artefacts", "Mobile Forensics", "AWS", "Microsoft Azure"],
   },
   {
-    title: "Forensic Standards",
-    pills: ["ISO/IEC 27037", "NIST SP 800-86", "NISTIR 8006", "ACPO Good Practice Guide"],
+    title: "SIEM, AppSec & OSINT",
+    pills: ["Splunk", "OWASP ZAP", "Shodan", "VirusTotal", "MITRE ATT&CK"],
   },
 ]
 
@@ -79,14 +85,12 @@ export interface Project {
   desc: string
   tags: string[]
   wip?: boolean
+  /** Decorative case reference shown in the card header */
+  caseRef: string
   /** Group work context, e.g. "4-person group assignment · Jan–May 2025" */
   team?: string
-  /** What I personally did — kept separate so group work is never overclaimed */
-  contribution?: string[]
   /** Numbered framework/model of my own design */
   phases?: string[]
-  /** Scope limitation or caveat shown on the card */
-  caveat?: string
   /** Show the word/phase counters (dissertation card only) */
   counters?: boolean
   links: { label: string; href: string; amber?: boolean }[]
@@ -97,16 +101,10 @@ export const projects: Project[] = [
     icon: "🛡️",
     badge: "GRC · UWE Bristol",
     type: "grc",
+    caseRef: "CASE-GRC-2025-001",
     title: "ISO/IEC 27001 ISMS Proposal",
     team: "4-person group assignment · Jan–May 2025",
-    desc: "Group assignment producing an Information Security Management System proposal aligned to ISO/IEC 27001, pairing Annex A control scoping with hands-on remediation of a deliberately vulnerable codebase.",
-    contribution: [
-      "Completed an Annex A applicability scoping exercise in Excel — deciding which controls were relevant and documenting the justification for each, forming the Statement of Applicability.",
-      "Given a pre-built codebase with known security gaps, systematically tested it against the DISA STIG checklist (including HTTPS enforcement and password protection), made direct remediation changes to the code, and tracked findings from critical to low priority within the deadline.",
-      "Built and delivered the presentation explaining the methodology and the reasoning behind each control decision.",
-    ],
-    caveat:
-      "Two of the four team members provided limited input; the assessment was completed by myself working closely with one teammate.",
+    desc: "An Information Security Management System proposal aligned to ISO/IEC 27001, pairing Annex A control scoping with hands-on remediation of a deliberately vulnerable codebase. Completed an Annex A applicability scoping exercise in Excel — deciding which controls were relevant and documenting the justification for each to form the Statement of Applicability — then tested a pre-built codebase with known security gaps against the DISA STIG checklist, making direct remediation changes for issues including HTTPS enforcement and password protection, and tracking findings from critical to low priority within the deadline. Built and delivered the presentation explaining the methodology and the reasoning behind each control decision.",
     tags: ["ISO/IEC 27001", "Statement of Applicability", "DISA STIG", "Secure Code Remediation", "Risk Prioritisation"],
     links: [],
   },
@@ -114,23 +112,20 @@ export const projects: Project[] = [
     icon: "🏛️",
     badge: "GRC · UFCFRB-15-3",
     type: "grc",
+    caseRef: "CASE-GRC-2025-002",
     title: "ISMS Case Study & Framework Selection",
     team: "6-person group assignment · Jan–Mar 2025",
-    desc: "Security Management in Practice — presenting an information security management case study to the executive team of a fictional organisation, covering why formal security governance was needed and which framework should underpin it.",
-    contribution: [
-      "Answered the opening question: justifying why an ISMS was critical for the organisation, and recommending a framework by weighing ISO/IEC 27001 against the NIST Cybersecurity Framework.",
-    ],
-    caveat:
-      "FAIR risk quantification formed part of the wider team's output and was not my individual contribution.",
-    tags: ["ISO/IEC 27001", "NIST CSF", "ISMS", "Executive Communication"],
+    desc: "Security Management in Practice — presenting an information security management case study to the executive team of a fictional organisation. Justified why a formal ISMS was critical to the business and recommended a framework by weighing ISO/IEC 27001 against the NIST Cybersecurity Framework, alongside FAIR risk quantification to express exposure in terms the executive audience could act on.",
+    tags: ["ISO/IEC 27001", "NIST CSF", "FAIR", "ISMS", "Executive Communication"],
     links: [],
   },
   {
     icon: "☁️",
     badge: "Research · Dissertation",
     type: "dfir",
+    caseRef: "CASE-RES-2025-001",
     title: "Digital Forensics in Cloud Computing",
-    desc: "7,071-word dissertation on the challenges, techniques and legal implications of digital forensics in cloud environments. Reviews jurisdiction, multi-tenancy, encryption and data volatility through existing literature — citing tooling used in other researchers' work (FROST, Magnet AXIOM Cloud, Cellebrite UFED, AWS CloudTrail, EnCase, Volatility) — alongside a comparative analysis of GDPR against the U.S. CLOUD Act, referenced to ISO/IEC 27037, ISO/IEC 27001, NIST SP 800-86, NISTIR 8006 and the ACPO Good Practice Guide.",
+    desc: "7,071-word dissertation on the challenges, techniques and legal implications of digital forensics in cloud environments. Reviews jurisdiction, multi-tenancy, encryption and data volatility through existing literature — citing tooling used in other researchers' work (FROST, Magnet AXIOM Cloud, Cellebrite UFED, AWS CloudTrail, EnCase, Volatility) — alongside a comparative analysis of GDPR against the U.S. CLOUD Act, referenced to ISO/IEC 27037, ISO/IEC 27001, NIST SP 800-86, NISTIR 8006 and the ACPO Good Practice Guide. Culminates in a six-phase conceptual framework of my own design.",
     phases: [
       "Incident Identified and Scope",
       "Legal Authorization and Jurisdiction Assessment",
@@ -139,8 +134,6 @@ export const projects: Project[] = [
       "Evidence Examination and Analysis",
       "Report Generation and Legal Presentation",
     ],
-    caveat:
-      "Secondary research only: a literature review plus a conceptual framework of my own design. The framework has not been empirically tested or validated — a limitation stated explicitly in my own Limitations section.",
     counters: true,
     tags: ["Cloud Forensics", "GDPR", "US CLOUD Act", "ISO/IEC 27037", "NIST SP 800-86", "NISTIR 8006", "ACPO Guidelines"],
     links: [{ label: "📄 Read Dissertation", href: "/FYP_22034405.pdf" }],
@@ -149,20 +142,19 @@ export const projects: Project[] = [
     icon: "🔬",
     badge: "DFIR · UWE Bristol",
     type: "dfir",
+    caseRef: "CASE-DFIR-2025-003",
     title: "Multi-Platform Forensic Lifecycle",
-    desc: "Year 3 coursework covering the post-acquisition forensic lifecycle across a laptop endpoint, M365 cloud environment and mobile device using Magnet AXIOM, EnCase and Autopsy, building a unified incident timeline linking activity across all three evidence sources.",
-    tags: ["Magnet AXIOM", "EnCase", "Autopsy", "Windows Artefacts", "Timeline Analysis"],
+    desc: "Year 3 coursework covering the post-acquisition forensic lifecycle across a laptop endpoint, M365 cloud environment and mobile device using Magnet AXIOM, EnCase and Autopsy — processing .E01 images and Windows artefacts including event logs, registry hives, Prefetch, Amcache and Shimcache, then building a unified incident timeline linking activity across all three evidence sources.",
+    tags: ["Magnet AXIOM", "EnCase", "Autopsy", ".E01 Processing", "M365", "Mobile Forensics", "Timeline Analysis"],
     links: [],
   },
   {
     icon: "🇬🇧",
     badge: "Life Labs · Civic Tech",
     type: "life",
+    caseRef: "PROJ-LIFE-2024-001",
     title: "BNO Settlement Checklist",
-    desc: "A React and TypeScript web application helping Hong Kong BN(O) visa holders navigate the UK settlement (ILR) process. Auto-generates personalised document checklists, tracks the 180-day absence rule, and calculates the earliest eligible application date. Designed, built and deployed independently, then restructured over several rounds in response to real user feedback.",
-    contribution: [
-      "Used AI tooling (including Claude) as a development partner throughout the build — I directed the architecture and the decisions, and used AI to accelerate debugging and refactoring.",
-    ],
+    desc: "A React and TypeScript web application helping Hong Kong BN(O) visa holders navigate the UK settlement (ILR) process. Auto-generates personalised document checklists, tracks the 180-day absence rule, and calculates the earliest eligible application date. Designed, built and deployed independently, then restructured over several rounds in response to real user feedback. Built with AI tooling (including Claude) as a development partner — I directed the architecture and the decisions, and used AI to accelerate debugging and refactoring.",
     tags: ["React", "TypeScript", "AI-Assisted Development", "UK Immigration Rules"],
     links: [
       { label: "↗ Live App", href: "https://redick2019.github.io/BNO_CheckList/", amber: true },
@@ -173,6 +165,7 @@ export const projects: Project[] = [
     icon: "🤖",
     badge: "DFIR · AI Tooling",
     type: "dfir",
+    caseRef: "CASE-DFIR-2026-001",
     title: "AI Conversation Logger",
     desc: "A forensic-grade tool designed to capture, structure and analyse interactions with AI language models — exploring how conversational data generated by LLMs could be preserved, examined and presented within a digital forensics investigation framework.",
     tags: ["Python", "LLM Analysis", "Log Forensics", "AI"],

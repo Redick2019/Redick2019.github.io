@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react"
 import { motion, useInView } from "framer-motion"
 import { skillGroups, skillsNote } from "@/data"
-import { HexDumpBg } from "../ui/effects"
+import { HexDumpBg, RiskMatrix } from "../ui/effects"
 
 const nodes = [
   {cx:210,cy:58, r:34,icon:'🔍',label:'Forensics'},
@@ -44,7 +44,7 @@ function NetworkDiagram() {
   },[inView])
 
   return (
-    <div ref={wrapRef} className="hidden lg:block w-[400px] h-[380px] flex-shrink-0 relative">
+    <div ref={wrapRef} className="hidden lg:block w-[400px] h-[380px] mx-auto relative">
       <svg ref={svgRef} viewBox="0 0 420 380" className="absolute inset-0 w-full h-full overflow-visible">
         <defs><filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
         {edges.map(([x1,y1,x2,y2],i)=>(
@@ -96,26 +96,34 @@ export default function Skills() {
           <span className="text-[#00b4ff]">ℹ</span> {skillsNote}
         </motion.p>
 
-        <div className="flex gap-16 items-start">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-7 flex-1">
-            {skillGroups.map((g,gi)=>(
-              <motion.div key={g.title} initial={{opacity:0,y:24}}
-                animate={inView?{opacity:1,y:0}:{}}
-                transition={{duration:.6,delay:.1+gi*.08}}>
-                <div className="font-mono text-[10px] tracking-widest uppercase text-[#5d7a96] mb-3 pb-2"
-                  style={{borderBottom:'1px solid #1a2d42'}}>{g.title}</div>
-                <div className="flex flex-wrap gap-2">
-                  {g.pills.map(p=>(
-                    <span key={p} className="text-[13px] px-3 py-1 rounded text-[#dde4ed] cursor-default transition-all hover:text-[#00b4ff] hover:border-[#00b4ff]"
-                      style={{background:'#111f30',border:'1px solid #1a2d42'}}>{p}</span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-          <motion.div initial={{opacity:0,x:28}} animate={inView?{opacity:1,x:0}:{}}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-9">
+          {skillGroups.map((g,gi)=>(
+            <motion.div key={g.title} initial={{opacity:0,y:24}}
+              animate={inView?{opacity:1,y:0}:{}}
+              transition={{duration:.6,delay:.1+gi*.08}}>
+              <div className="font-mono text-[10px] tracking-widest uppercase text-[#5d7a96] mb-3 pb-2"
+                style={{borderBottom:'1px solid #1a2d42'}}>{g.title}</div>
+              <div className="flex flex-wrap gap-2">
+                {g.pills.map(p=>(
+                  <span key={p} className="text-[13px] px-3 py-1 rounded text-[#dde4ed] cursor-default transition-all hover:text-[#00b4ff] hover:border-[#00b4ff]"
+                    style={{background:'#111f30',border:'1px solid #1a2d42'}}>{p}</span>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Methodology visuals */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center mt-20 pt-16"
+          style={{borderTop:'1px solid #1a2d42'}}>
+          <motion.div className="hidden lg:block"
+            initial={{opacity:0,x:-28}} animate={inView?{opacity:1,x:0}:{}}
             transition={{duration:.65,delay:.3}}>
             <NetworkDiagram/>
+          </motion.div>
+          <motion.div initial={{opacity:0,x:28}} animate={inView?{opacity:1,x:0}:{}}
+            transition={{duration:.65,delay:.35}}>
+            <RiskMatrix/>
           </motion.div>
         </div>
       </div>
