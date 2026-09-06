@@ -4,16 +4,16 @@ import { motion, useInView } from "framer-motion"
 const tracks = [
   {
     num: "01 / CAREER",
-    emoji: "🔬",
-    title: "DFIR Work",
-    desc: "Digital Forensics & Incident Response — AI-assisted log investigation, packet analysis, memory forensics, and case studies demonstrating real investigative methodology and evidential standards.",
+    emoji: "🛡️",
+    title: "Security & Compliance",
+    desc: "Governance, risk and compliance alongside digital forensics — ISO/IEC 27001 control scoping, secure code remediation against DISA STIG benchmarks, cloud forensics research, and live incident triage for victims of cybercrime.",
     color: "#00b4ff",
     glow: "rgba(0,180,255,.06)",
     border: "rgba(0,180,255,.25)",
     dir: -1,
   },
   {
-    num: "02 / HOBBY",
+    num: "02 / PRACTICE",
     emoji: "⚗️",
     title: "Life Labs",
     desc: "Real-world problems solved with AI-assisted development — from civic technology tools to everyday utilities. Proof that technology should work for people, not the other way around.",

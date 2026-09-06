@@ -27,7 +27,7 @@ export default function Contact() {
               Let's Talk.
             </h2>
             <p className="text-[15px] text-[#5d7a96] leading-relaxed max-w-sm mx-auto mb-8">
-              Open to DFIR analyst roles, IR positions, and collaborations. Also happy to chat about forensics, AI tooling, or cloud security.
+              Actively seeking GRC and compliance roles or SOC analyst positions across the UK. Also happy to chat about ISMS work, cloud forensics, or AI-assisted development.
             </p>
             <div className="flex justify-center gap-3 flex-wrap">
               {links.map(l => (

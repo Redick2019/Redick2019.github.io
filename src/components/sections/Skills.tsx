@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react"
 import { motion, useInView } from "framer-motion"
-import { skillGroups } from "@/data"
+import { skillGroups, skillsNote } from "@/data"
 import { HexDumpBg } from "../ui/effects"
 
 const nodes = [
@@ -64,7 +64,7 @@ function NetworkDiagram() {
         <circle cx="210" cy="190" r="50" fill="none" stroke="#00b4ff" strokeOpacity=".08" strokeDasharray="4 8">
           <animateTransform attributeName="transform" type="rotate" from="0 210 190" to="360 210 190" dur="18s" repeatCount="indefinite"/>
         </circle>
-        <text x="210" y="185" fontSize="10" fill="#00b4ff" textAnchor="middle" dominantBaseline="central" fontFamily="'DM Mono',monospace">DFIR</text>
+        <text x="210" y="185" fontSize="10" fill="#00b4ff" textAnchor="middle" dominantBaseline="central" fontFamily="'DM Mono',monospace">GRC / SOC</text>
         <text x="210" y="199" fontSize="9" fill="#00b4ff" textAnchor="middle" dominantBaseline="central" fontFamily="'DM Mono',monospace">analyst</text>
         <circle id="pulse-ring" cx="210" cy="190" r="44" fill="none" stroke="#00b4ff" strokeOpacity="0" strokeWidth="1.5"/>
       </svg>
@@ -87,8 +87,14 @@ export default function Skills() {
         </motion.div>
         <motion.h2 initial={{opacity:0,y:24}} animate={inView?{opacity:1,y:0}:{}}
           transition={{duration:.6,delay:.1}}
-          className="font-syne font-extrabold tracking-tighter leading-tight mb-14"
+          className="font-syne font-extrabold tracking-tighter leading-tight mb-4"
           style={{fontSize:'clamp(30px,4vw,46px)'}}>Skills &amp; Tools</motion.h2>
+        <motion.p initial={{opacity:0,y:24}} animate={inView?{opacity:1,y:0}:{}}
+          transition={{duration:.6,delay:.15}}
+          className="font-mono text-[11px] text-[#5d7a96] leading-relaxed max-w-xl mb-14 rounded-lg px-4 py-3"
+          style={{background:'#111f30',border:'1px solid #1a2d42'}}>
+          <span className="text-[#00b4ff]">ℹ</span> {skillsNote}
+        </motion.p>
 
         <div className="flex gap-16 items-start">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-7 flex-1">
